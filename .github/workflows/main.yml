@@ -20,6 +20,6 @@ jobs:
         env:
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
         run: |
-          git remote add azure "https://vincecareer:${AZURE_PAT}@@dev.azure.com/vincecareer/web-portfolio-backup/_git/web-portfolio-backup"
+          git remote add azure "https://vincecareer:${AZURE_PAT}@dev.azure.com/vincecareer/web-portfolio-backup/_git/web-portfolio-backup"
           git push azure --all
           git push azure --tags
