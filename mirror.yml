@@ -1,10 +1,10 @@
-name: Mirror Repository to Azure devops repository
+name: Mirror Repository to Azure DevOps repository
 
 on:
   push:
     branches:
-      - master
       - main
+      - master
 
 jobs:
   mirror:
@@ -16,10 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-
-      #
-      # --- Mirror to Azure DevOps ---
-      #
       - name: Mirror to Azure DevOps
         env:
           AZURE_PAT: ${{ secrets.AZURE_PAT }}
@@ -27,8 +23,3 @@ jobs:
           git remote add azure "https://vincecareer:${AZURE_PAT}@dev.azure.com/vincecareer/Terraform-basics-backup/_git/Terraform-basics-backup"
           git push azure --all
           git push azure --tags
-
-
-
-
-
