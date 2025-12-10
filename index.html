@@ -17,9 +17,9 @@
 			<header id="header">
 				<div class="inner">
 					<a href="#" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-					<h1><strong>I am vince2445</strong>, a super simple<br />
-					responsive site template freebie<br />
-					crafted by <a href="http://html5up.net">HTML5 UP</a>.</h1>
+					<h1><strong>Hi, I’m Vince </strong>— Software Engineer integrating full-stack development with cloud-native architecture and DevOps pipelines.<br />
+					<br />
+				</a></h1>
 				</div>
 			</header>
 
@@ -29,13 +29,12 @@
 				<!-- One -->
 					<section id="one">
 						<header class="major">
-							<h2>Ipsum lorem dolor aliquam ante commodo<br />
-							magna sed accumsan arcu neque.</h2>
+						<h2 class="hover-icon-container"><span class="ipsum-text">Ipsum<span class="hover-icon" data-gif="images/moving_clouds.gif"></span></span> asdasd asdasdasdasdlorem dolor aliquam ante commodo<br />
+						magna sed accumsan arcu neque.
+						<a href="#" id="resume-button" class="button resume-button-inline">Resume</a>
+						</h2>
 						</header>
 						<p>Accumsan orci faucibus id eu lorem semper. Eu ac iaculis ac nunc nisi lorem vulputate lorem neque cubilia ac in adipiscing in curae lobortis tortor primis integer massa adipiscing id nisi accumsan pellentesque commodo blandit enim arcu non at amet id arcu magna. Accumsan orci faucibus id eu lorem semper nunc nisi lorem vulputate lorem neque cubilia.</p>
-						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
-						</ul>
 					</section>
 
 				<!-- Two -->
@@ -45,7 +44,7 @@
 							<article class="col-6 col-12-xsmall work-item">
 								<a href="images/fulls/01.jpg" class="image fit thumb"><img src="images/thumbs/01.jpg" alt="" /></a>
 								<h3>Magna sed consequat tempus</h3>
-								<p>Lorem ipsum dolor sit amet nisl sed nullam feugiat.</p>
+								<p>Lorem ipsum asdasdasdsadasdasdadaolor sit amet nisl sed nullam feugiat.</p>
 							</article>
 							<article class="col-6 col-12-xsmall work-item">
 								<a href="images/fulls/02.jpg" class="image fit thumb"><img src="images/thumbs/02.jpg" alt="" /></a>
@@ -458,6 +457,86 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				// Control GIF animation and Resume button
+				window.addEventListener('load', function() {
+					const hoverIcon = document.querySelector('.hover-icon');
+					const ipsumText = document.querySelector('.ipsum-text');
+					const resumeButton = document.getElementById('resume-button');
+					
+					if (hoverIcon) {
+						const gifSrc = hoverIcon.getAttribute('data-gif') || 'images/moving_clouds.gif';
+						let staticFrame = null;
+						
+						// Create static first frame
+						const img = new Image();
+						img.onload = function() {
+							try {
+								const canvas = document.createElement('canvas');
+								canvas.width = this.width;
+								canvas.height = this.height;
+								const ctx = canvas.getContext('2d');
+								ctx.drawImage(this, 0, 0);
+								staticFrame = canvas.toDataURL();
+								
+								// Set static frame as default background
+								hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
+								
+								// Function to animate cloud
+								function animateCloud() {
+									hoverIcon.style.backgroundImage = 'url(' + gifSrc + '?t=' + Date.now() + ')';
+									// Return to static after 2 seconds
+									setTimeout(function() {
+										if (staticFrame) {
+											hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
+										}
+									}, 2000);
+								}
+								
+								// Animate on hover (if ipsumText exists)
+								if (ipsumText) {
+									ipsumText.addEventListener('mouseenter', function() {
+										hoverIcon.style.backgroundImage = 'url(' + gifSrc + '?t=' + Date.now() + ')';
+									});
+									
+									ipsumText.addEventListener('mouseleave', function() {
+										hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
+									});
+								}
+								
+								// Resume button handlers
+								if (resumeButton) {
+									// Animate on hover
+									resumeButton.addEventListener('mouseenter', function() {
+										hoverIcon.style.backgroundImage = 'url(' + gifSrc + '?t=' + Date.now() + ')';
+									});
+									
+									resumeButton.addEventListener('mouseleave', function() {
+										hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
+									});
+									
+									// Click handler
+									resumeButton.addEventListener('click', function(e) {
+										e.preventDefault();
+										// Animate the cloud
+										animateCloud();
+										// Open resume in new tab (update this URL with your actual resume link)
+										window.open('YOUR_RESUME_URL_HERE', '_blank', 'noopener,noreferrer');
+									});
+								}
+							} catch(e) {
+								console.error('Error:', e);
+								// Fallback: just show the GIF
+								hoverIcon.style.backgroundImage = 'url(' + gifSrc + ')';
+							}
+						};
+						img.onerror = function() {
+							hoverIcon.style.backgroundImage = 'url(' + gifSrc + ')';
+						};
+						img.src = gifSrc;
+					}
+				});
+			</script>
 
 	</body>
 </html>
