@@ -3120,14 +3120,18 @@ input, select, textarea {
 			}
 
 			/* Cloud icon and buttons - prevent overlap with header on mobile */
+			.hover-icon-container {
+				margin-top: 4em !important;
+			}
+
 			.hover-icon {
-				top: -3em !important;
+				top: -7em !important;
 				z-index: 0 !important;
 				pointer-events: none !important;
 			}
 
 			.button-group-inline {
-				top: -2.5em !important;
+				top: -6.5em !important;
 				left: 3em !important;
 				gap: 0.4em !important;
 				flex-wrap: wrap !important;
@@ -3216,14 +3220,18 @@ input, select, textarea {
 				}
 
 			/* Cloud icon and buttons - prevent overlap with header on mobile */
+			.hover-icon-container {
+				margin-top: 4em !important;
+			}
+
 			.hover-icon {
-				top: -3em !important;
+				top: -7em !important;
 				z-index: 0 !important;
 				pointer-events: none !important;
 			}
 
 			.button-group-inline {
-				top: -2.5em !important;
+				top: -6.5em !important;
 				left: 3em !important;
 				gap: 0.4em !important;
 				flex-wrap: wrap !important;
