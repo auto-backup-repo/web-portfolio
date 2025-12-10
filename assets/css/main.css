@@ -2705,6 +2705,10 @@ input, select, textarea {
 				padding-top: 0;
 			}
 
+			#main > section#one p {
+				color: #1a1919;
+			}
+
 /* Poptrox */
 
 	@-moz-keyframes spin {
@@ -3301,6 +3305,7 @@ input, select, textarea {
 			position: relative;
 			display: inline-block;
 			pointer-events: auto;
+			color: #000000;
 		}
 
 		.hover-icon {
