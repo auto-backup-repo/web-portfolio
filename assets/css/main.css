@@ -3145,7 +3145,7 @@ input, select, textarea {
 			#get-in-touch-button {
 				flex-basis: auto !important;
 				width: auto !important;
-				margin-top: 0.5em !important;
+
 			}
 
 	}
@@ -3241,7 +3241,7 @@ input, select, textarea {
 			#get-in-touch-button {
 				flex-basis: auto !important;
 				width: auto !important;
-				margin-top: 0.5em !important;
+				margin-top: 0.2em !important;
 			}
 
 		/* Poptrox */
