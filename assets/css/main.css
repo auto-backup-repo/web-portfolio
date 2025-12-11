@@ -2763,9 +2763,10 @@ input, select, textarea {
 				color: #1a1919;
 			}
 
-			#main > section#two h2 {
-				color: #143fb8;
-			}
+		#main > section#two h2 {
+			color: #143fb8;
+			font-weight: 700 !important;
+		}
 
 /* Poptrox */
 
@@ -3212,12 +3213,17 @@ input, select, textarea {
 				pointer-events: auto !important;
 				font-size: 0.7em !important;
 				padding: 0 0.8em !important;
+				color: #000000 !important;
 			}
 
 			#get-in-touch-button {
 				flex-basis: auto !important;
 				width: auto !important;
 
+			}
+
+			#main > section#two h2 {
+				font-weight: 700 !important;
 			}
 
 	}
@@ -3318,12 +3324,17 @@ input, select, textarea {
 				pointer-events: auto !important;
 				font-size: 0.7em !important;
 				padding: 0 0.8em !important;
+				color: #000000 !important;
 			}
 
 			#get-in-touch-button {
 				flex-basis: auto !important;
 				width: auto !important;
 				margin-top: 0.2em !important;
+			}
+
+			#main > section#two h2 {
+				font-weight: 700 !important;
 			}
 
 		/* Poptrox */
@@ -3420,7 +3431,7 @@ input, select, textarea {
 			border-color: #052A75;
 			z-index: 1;
 			pointer-events: auto;
-			color: #000000;
+			color: #000000 !important;
 		}
 
 		.resume-button-inline:hover {

@@ -563,17 +563,13 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 						
 						// Function to handle button navigation (works for both click and touch)
 						function handleButtonNavigation(button, action) {
-							// Click handler (desktop and mobile)
-							button.addEventListener('click', function(e) {
-								e.preventDefault();
-								animateCloud();
-								action();
-							});
+							let touchHandled = false;
 							
 							// Touch handler for mobile (direct navigation)
 							let touchStartTime = 0;
 							button.addEventListener('touchstart', function() {
 								touchStartTime = Date.now();
+								touchHandled = false;
 							});
 							
 							button.addEventListener('touchend', function(e) {
@@ -581,9 +577,27 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 								// If it's a quick tap (not a long press), trigger navigation
 								if (touchDuration < 300) {
 									e.preventDefault();
+									touchHandled = true;
 									animateCloud();
 									action();
 								}
+							});
+							
+							// Click handler (desktop and mobile - but skip if touch already handled)
+							button.addEventListener('click', function(e) {
+								// If touch already handled the action, prevent click from firing
+								if (touchHandled) {
+									e.preventDefault();
+									e.stopPropagation();
+									// Reset flag after a short delay
+									setTimeout(function() {
+										touchHandled = false;
+									}, 300);
+									return;
+								}
+								e.preventDefault();
+								animateCloud();
+								action();
 							});
 						}
 						
