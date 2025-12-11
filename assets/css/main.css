@@ -3138,6 +3138,12 @@ input, select, textarea {
 				pointer-events: none !important;
 			}
 
+			.hover-icon video {
+				display: block !important;
+				visibility: visible !important;
+				opacity: 1 !important;
+			}
+
 			.button-group-inline {
 				top: -6.5em !important;
 				left: 3em !important;
@@ -3238,6 +3244,12 @@ input, select, textarea {
 				pointer-events: none !important;
 			}
 
+			.hover-icon video {
+				display: block !important;
+				visibility: visible !important;
+				opacity: 1 !important;
+			}
+
 			.button-group-inline {
 				top: -6.5em !important;
 				left: 3em !important;
@@ -3324,6 +3336,7 @@ input, select, textarea {
 			background-repeat: no-repeat;
 			background-position: center;
 			z-index: 0;
+			overflow: hidden;
 		}
 
 		.button-group-inline {

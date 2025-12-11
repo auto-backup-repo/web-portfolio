@@ -31,7 +31,7 @@
 				<!-- One -->
 					<section id="one">
 						<header class="major">
-						<h2 class="hover-icon-container"><span class="ipsum-text">Full-Stack Foundations, Cloud Ambitions<span class="hover-icon" data-gif="images/moving_clouds.gif"></span></span>
+						<h2 class="hover-icon-container"><span class="ipsum-text">Full-Stack Foundations, Cloud Ambitions<span class="hover-icon" data-video="images/cloud_icon.mp4"></span></span>
 						<div class="button-group-inline">
 							<a href="#" id="resume-button" class="button resume-button-inline">Resume</a>
 							<a href="#two" id="projects-button" class="button resume-button-inline">Projects</a>
@@ -474,121 +474,157 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 					const getInTouchButton = document.getElementById('get-in-touch-button');
 					
 					if (hoverIcon) {
-						const gifSrc = hoverIcon.getAttribute('data-gif') || 'images/moving_clouds.gif';
-						let staticFrame = null;
+						const videoSrc = hoverIcon.getAttribute('data-video') || 'images/cloud_icon.mp4';
+						let videoElement = null;
 						
-						// Create static first frame
-						const img = new Image();
-						img.onload = function() {
-							try {
-								const canvas = document.createElement('canvas');
-								canvas.width = this.width;
-								canvas.height = this.height;
-								const ctx = canvas.getContext('2d');
-								ctx.drawImage(this, 0, 0);
-								staticFrame = canvas.toDataURL();
-								
-								// Set static frame as default background
-								hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
-								
-								// Function to animate cloud
-								function animateCloud() {
-									hoverIcon.style.backgroundImage = 'url(' + gifSrc + '?t=' + Date.now() + ')';
-									// Return to static after 2 seconds
-									setTimeout(function() {
-										if (staticFrame) {
-											hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
-										}
-									}, 2000);
-								}
-								
-								// Function to add hover handlers to buttons
-								function addButtonHoverHandlers(button) {
-									if (button) {
-										button.addEventListener('mouseenter', function() {
-											hoverIcon.style.backgroundImage = 'url(' + gifSrc + '?t=' + Date.now() + ')';
-										});
-										
-										button.addEventListener('mouseleave', function() {
-											hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
-										});
-									}
-								}
-								
-								// Animate on hover (if ipsumText exists) - DISABLED
-								// if (ipsumText) {
-								// 	ipsumText.addEventListener('mouseenter', function() {
-								// 		hoverIcon.style.backgroundImage = 'url(' + gifSrc + '?t=' + Date.now() + ')';
-								// 	});
-								// 	
-								// 	ipsumText.addEventListener('mouseleave', function() {
-								// 		hoverIcon.style.backgroundImage = 'url(' + staticFrame + ')';
-								// 	});
-								// }
-								
-								// Add hover handlers to all buttons
-								addButtonHoverHandlers(resumeButton);
-								addButtonHoverHandlers(projectsButton);
-								addButtonHoverHandlers(timelineButton);
-								addButtonHoverHandlers(getInTouchButton);
-								
-								// Resume button click handler
-								if (resumeButton) {
-									resumeButton.addEventListener('click', function(e) {
-										e.preventDefault();
-										animateCloud();
-										window.open('YOUR_RESUME_URL_HERE', '_blank', 'noopener,noreferrer');
-									});
-								}
-								
-								// Projects button click handler
-								if (projectsButton) {
-									projectsButton.addEventListener('click', function(e) {
-										e.preventDefault();
-										animateCloud();
-										const targetSection = document.getElementById('two');
-										if (targetSection) {
-											targetSection.scrollIntoView({ behavior: 'smooth' });
-										}
-									});
-								}
-								
-								// Timeline button click handler
-								if (timelineButton) {
-									timelineButton.addEventListener('click', function(e) {
-										e.preventDefault();
-										animateCloud();
-										const targetSection = document.getElementById('timeline');
-										if (targetSection) {
-											targetSection.scrollIntoView({ behavior: 'smooth' });
-										} else {
-											// If timeline section doesn't exist, scroll to a placeholder or show message
-											console.log('Timeline section not found');
-										}
-									});
-								}
-								
-								// Get In Touch button click handler
-								if (getInTouchButton) {
-									getInTouchButton.addEventListener('click', function(e) {
-										e.preventDefault();
-										animateCloud();
-										const targetSection = document.getElementById('three');
-										if (targetSection) {
-											targetSection.scrollIntoView({ behavior: 'smooth' });
-										}
-									});
-								}
-							} catch(e) {
-								console.error('Error:', e);
-								// Fallback: just show the GIF
-								hoverIcon.style.backgroundImage = 'url(' + gifSrc + ')';
+						// Create video element (visible, paused by default)
+						videoElement = document.createElement('video');
+						videoElement.src = videoSrc;
+						videoElement.style.position = 'absolute';
+						videoElement.style.top = '0';
+						videoElement.style.left = '0';
+						videoElement.style.width = '100%';
+						videoElement.style.height = '100%';
+						videoElement.style.objectFit = 'contain';
+						videoElement.style.opacity = '1';
+						videoElement.style.pointerEvents = 'none';
+						videoElement.style.zIndex = '1';
+						videoElement.loop = true;
+						videoElement.muted = true;
+						videoElement.playsInline = true;
+						videoElement.pause(); // Paused by default
+						hoverIcon.appendChild(videoElement);
+						
+						// Seek to first frame when loaded
+						videoElement.addEventListener('loadedmetadata', function() {
+							this.currentTime = 0;
+							// Ensure video is visible on mobile
+							this.style.display = 'block';
+							this.style.visibility = 'visible';
+							this.style.opacity = '1';
+						});
+						
+						videoElement.addEventListener('canplay', function() {
+							// Ensure video is visible when it can play
+							this.style.display = 'block';
+							this.style.visibility = 'visible';
+							this.style.opacity = '1';
+						});
+						
+						videoElement.addEventListener('error', function() {
+							console.error('Error loading video:', videoSrc);
+						});
+						
+						// Load video explicitly
+						videoElement.load();
+						
+						// Function to play video (on hover)
+						function showAnimatedGif() {
+							if (videoElement) {
+								videoElement.play();
 							}
-						};
-						img.onerror = function() {
-							hoverIcon.style.backgroundImage = 'url(' + gifSrc + ')';
-						};
-						img.src = gifSrc;
+						}
+						
+						// Function to pause video (when not hovered)
+						function showStaticFrame() {
+							if (videoElement) {
+								videoElement.pause();
+							}
+						}
+						
+						// Function to animate cloud (for button clicks)
+						function animateCloud() {
+							showAnimatedGif();
+							// Return to static after 2 seconds
+							setTimeout(function() {
+								showStaticFrame();
+							}, 2000);
+						}
+						
+						// Function to add hover handlers to buttons (desktop only)
+						function addButtonHoverHandlers(button) {
+							if (button) {
+								// Mouse events (desktop)
+								button.addEventListener('mouseenter', function() {
+									showAnimatedGif();
+								});
+								
+								button.addEventListener('mouseleave', function() {
+									showStaticFrame();
+								});
+							}
+						}
+						
+						// Add hover handlers to all buttons
+						addButtonHoverHandlers(resumeButton);
+						addButtonHoverHandlers(projectsButton);
+						addButtonHoverHandlers(timelineButton);
+						addButtonHoverHandlers(getInTouchButton);
+						
+						// Function to handle button navigation (works for both click and touch)
+						function handleButtonNavigation(button, action) {
+							// Click handler (desktop and mobile)
+							button.addEventListener('click', function(e) {
+								e.preventDefault();
+								animateCloud();
+								action();
+							});
+							
+							// Touch handler for mobile (direct navigation)
+							let touchStartTime = 0;
+							button.addEventListener('touchstart', function() {
+								touchStartTime = Date.now();
+							});
+							
+							button.addEventListener('touchend', function(e) {
+								const touchDuration = Date.now() - touchStartTime;
+								// If it's a quick tap (not a long press), trigger navigation
+								if (touchDuration < 300) {
+									e.preventDefault();
+									animateCloud();
+									action();
+								}
+							});
+						}
+						
+						// Resume button handler
+						if (resumeButton) {
+							handleButtonNavigation(resumeButton, function() {
+								window.open('YOUR_RESUME_URL_HERE', '_blank', 'noopener,noreferrer');
+							});
+						}
+						
+						// Projects button handler
+						if (projectsButton) {
+							handleButtonNavigation(projectsButton, function() {
+								const targetSection = document.getElementById('two');
+								if (targetSection) {
+									targetSection.scrollIntoView({ behavior: 'smooth' });
+								}
+							});
+						}
+						
+						// Timeline button handler
+						if (timelineButton) {
+							handleButtonNavigation(timelineButton, function() {
+								const targetSection = document.getElementById('timeline');
+								if (targetSection) {
+									targetSection.scrollIntoView({ behavior: 'smooth' });
+								} else {
+									console.log('Timeline section not found');
+								}
+							});
+						}
+						
+						// Get In Touch button handler
+						if (getInTouchButton) {
+							handleButtonNavigation(getInTouchButton, function() {
+								const targetSection = document.getElementById('three');
+								if (targetSection) {
+									targetSection.scrollIntoView({ behavior: 'smooth' });
+								}
+							});
+						}
 					}
 				});
 			</script>
