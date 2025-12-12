@@ -2615,11 +2615,13 @@ input, select, textarea {
 			-webkit-backface-visibility: hidden;
 			transform: translateZ(0);
 			-webkit-transform: translateZ(0);
-			will-change: transform;
-			-moz-transition: filter 0.3s ease-in-out;
-			-webkit-transition: filter 0.3s ease-in-out;
-			-ms-transition: filter 0.3s ease-in-out;
-			transition: filter 0.3s ease-in-out;
+			will-change: transform, filter;
+			-moz-transition: filter 1s ease-in-out;
+			-webkit-transition: filter 1s ease-in-out;
+			-ms-transition: filter 1s ease-in-out;
+			transition: filter 1s ease-in-out;
+			filter: blur(0px);
+			-webkit-filter: blur(0px);
 		}
 
 		.work-item .image:hover img {

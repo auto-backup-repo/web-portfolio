@@ -133,10 +133,10 @@
 				$workItems.each(function() {
 					var $this = $(this);
 					var $link = $this.find('a.image');
-					var imgSrc = $this.find('img').attr('src');
+					var linkHref = $link.attr('href');
 					
-					// Check if this is the Pathfinder project
-					if (imgSrc && imgSrc.indexOf('Pathfinder-Senior-design-poster') !== -1) {
+					// Check if this is the Pathfinder project (by checking the link href)
+					if (linkHref && linkHref.indexOf('Pathfinder-Senior-design-poster') !== -1) {
 						// Add data attribute to exclude from poptrox
 						$link.attr('data-carousel', 'true');
 						$link.on('click.carousel', function(e) {
@@ -178,6 +178,92 @@
 					});
 				});
 
+				// Add automatic random shuffle for Pathfinder project (Magna sed)
+				$workItems.each(function(index) {
+					var $this = $(this);
+					var $img = $this.find('img');
+					var $link = $this.find('a');
+					var imgSrc = $img.attr('src');
+					var linkHref = $link.attr('href');
+					var originalThumb = imgSrc;
+					
+					// Check if this is the Pathfinder project (by checking the link href)
+					if (linkHref && linkHref.indexOf('Pathfinder-Senior-design-poster') !== -1) {
+						// Manually list all Student Success Center images
+						var studentSuccessImages = [
+							{ thumb: 'images/thumbs/Student Success Center/landing.png', full: 'images/thumbs/Student Success Center/landing.png' },
+							{ thumb: 'images/thumbs/Student Success Center/Login.png', full: 'images/thumbs/Student Success Center/Login.png' },
+							{ thumb: 'images/thumbs/Student Success Center/team group picture.jpg', full: 'images/thumbs/Student Success Center/team group picture.jpg' },
+							{ thumb: 'images/thumbs/Student Success Center/Pathfinder-Senior-design-poster.png', full: 'images/thumbs/Student Success Center/Pathfinder-Senior-design-poster.png' }
+						];
+						
+						// Store the previous image to avoid showing the same one twice
+						var previousImage = null;
+						
+						// Function to shuffle to a random image with blur transition
+						function shuffleToRandom() {
+							if (studentSuccessImages.length > 0) {
+								var currentSrc = $img.attr('src');
+								
+								// Filter out current image and previous image
+								var availableImages = studentSuccessImages.filter(function(img) {
+									return img.thumb !== currentSrc && img.thumb !== previousImage;
+								});
+								
+								// If no other images available (only happens if there are only 2 images and we just switched)
+								// then allow the previous image but not the current one
+								if (availableImages.length === 0) {
+									availableImages = studentSuccessImages.filter(function(img) {
+										return img.thumb !== currentSrc;
+									});
+								}
+								
+								// If still no images (shouldn't happen with 3+ images), use all
+								if (availableImages.length === 0) {
+									availableImages = studentSuccessImages;
+								}
+								
+								var randomIndex = Math.floor(Math.random() * availableImages.length);
+								var randomImage = availableImages[randomIndex];
+								
+								// Store current image as previous for next shuffle
+								previousImage = currentSrc;
+								
+								// Blur the current image
+								$img.css({
+									'filter': 'blur(5px)',
+									'-webkit-filter': 'blur(5px)'
+								});
+								
+								// Change image source while blurred
+								setTimeout(function() {
+									$img.attr('src', randomImage.thumb);
+									
+									// Remove blur to reveal new image
+									setTimeout(function() {
+										$img.css({
+											'filter': 'blur(0px)',
+											'-webkit-filter': 'blur(0px)'
+										});
+									}, 50);
+								}, 500); // Half of transition time
+							}
+						}
+						
+						// Store original for reference
+						$this.data('originalThumb', originalThumb);
+						
+						// Don't shuffle immediately - landing.png is already showing
+						// Start shuffling after the first interval
+						
+						// Shuffle every 8 seconds (longer interval)
+						setInterval(shuffleToRandom, 8000);
+						
+						// Don't add hover functionality for this one
+						return;
+					}
+				});
+				
 				// Add hover functionality to each work item
 				$workItems.each(function(index) {
 					var $this = $(this);
@@ -186,7 +272,7 @@
 					var originalThumb = $img.attr('src');
 					var originalFull = $link.attr('href');
 					
-					// Skip shuffle for Student Success Center images
+					// Skip shuffle for Student Success Center images (including Pathfinder)
 					var skipShuffle = originalThumb.indexOf('Student Success Center') !== -1 || 
 									  originalThumb.indexOf('01.jpg') !== -1;
 					
