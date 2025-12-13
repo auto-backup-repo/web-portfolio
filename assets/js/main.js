@@ -146,7 +146,8 @@
 				// Open carousel for Pathfinder project - set up BEFORE poptrox
 				$workItems.each(function() {
 					var $this = $(this);
-					var $link = $this.find('a.image');
+					var $imageContainer = $this.find('.image.thumb');
+					var $link = $imageContainer.find('a').first();
 					var linkHref = $link.attr('href');
 					
 					// Check if this is the Pathfinder project (by checking the link href)
@@ -154,6 +155,10 @@
 						// Add data attribute to exclude from poptrox
 						$link.attr('data-carousel', 'true');
 						$link.on('click.carousel', function(e) {
+							// Don't open carousel if clicking on GitHub icon
+							if ($(e.target).closest('.github-icon-link').length > 0) {
+								return;
+							}
 							e.preventDefault();
 							e.stopPropagation();
 							e.stopImmediatePropagation();
@@ -163,6 +168,12 @@
 							return false;
 						});
 					}
+					
+					// Prevent GitHub icon clicks from triggering parent link
+					$this.find('.github-icon-link').on('click', function(e) {
+						e.stopPropagation();
+						e.stopImmediatePropagation();
+					});
 				});
 
 				// Initialize poptrox (will skip items with data-carousel attribute via selector)
@@ -467,6 +478,13 @@
 						}, 300);
 					});
 				}
+
+				// Prevent image hover effects when hovering over GitHub icon
+				$('.work-item .github-icon-link').on('mouseenter', function(e) {
+					$(this).closest('.image').addClass('github-hover');
+				}).on('mouseleave', function(e) {
+					$(this).closest('.image').removeClass('github-hover');
+				});
 
 			});
 
