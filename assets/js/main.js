@@ -486,6 +486,17 @@
 					$(this).closest('.image').removeClass('project-icons-hover');
 				});
 
+				// Tech stack expand toggle functionality
+				$('.tech-stack-expand-toggle').on('click', function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					var $techStack = $(this).closest('.tech-stack');
+					var $categories = $(this).closest('.tech-stack-categories');
+					$categories.toggleClass('expanded');
+					$techStack.toggleClass('expanded');
+				});
+
+
 			});
 
 	})(jQuery);
