@@ -2596,6 +2596,16 @@ input, select, textarea {
 	.work-item {
 		margin: 0 0 2em 0;
 	}
+	
+	/* Position Tortor metus commodo (3rd work-item) higher to reduce gap */
+	#two .row > .work-item:nth-child(3) {
+		margin-top: -3em;
+	}
+	
+	/* Position Quam neque phasellus (4th work-item) higher to match the same gap */
+	#two .row > .work-item:nth-child(4) {
+		margin-top: .5em;
+	}
 
 		.work-item .image {
 			margin: 0 0 1.5em 0;
