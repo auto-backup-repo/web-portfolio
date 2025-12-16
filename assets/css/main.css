@@ -2613,14 +2613,46 @@ input, select, textarea {
 		margin: 0;
 	}
 	
+	/* Position Tortor metus commodo (3rd work-item, left column) lower */
+	#two .row > .work-item:nth-child(3) {
+		grid-column: 1;
+		margin-top: -.5em;  /* Move Tortor metus commodo down */
+	}
+	
+	/* Position Quam neque phasellus (4th work-item, right column) lower */
+	#two .row > .work-item:nth-child(4) {
+		grid-column: 2;
+		margin-top: 1.6em; /* Move Quam neque phasellus down */
+	}
+	
 	.work-item {
 		margin: 0 0 2em 0;
 	}
 	
-	/* On mobile, make it single column */
+	/* On mobile, make it single column - force one frame at a time */
 	@media screen and (max-width: 480px) {
 		#two .row {
-			grid-template-columns: 1fr;
+			display: flex !important;
+			flex-direction: column !important;
+			grid-template-columns: 1fr !important;
+			gap: 1.5em 0 !important;
+		}
+		
+		/* Reset all grid positioning on mobile */
+		#two .row > .work-item {
+			grid-column: 1 !important;
+			grid-row: auto !important;
+			margin-top: 0 !important;
+			margin-bottom: 1.5em !important;
+			width: 100% !important;
+		}
+		
+		/* Ensure work-items stack vertically */
+		#two .row > .work-item:nth-child(3),
+		#two .row > .work-item:nth-child(4),
+		#two .row > .work-item:nth-child(5),
+		#two .row > .work-item:nth-child(6) {
+			margin-top: 0 !important;
 		}
 	}
 
@@ -2866,14 +2898,18 @@ input, select, textarea {
 			z-index: 1;
 			overscroll-behavior: contain;
 			-webkit-overflow-scrolling: touch;
-			-moz-transition: max-height 0.3s ease-in-out;
-			-webkit-transition: max-height 0.3s ease-in-out;
-			-ms-transition: max-height 0.3s ease-in-out;
-			transition: max-height 0.3s ease-in-out;
+			-moz-transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			-webkit-transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			-ms-transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 
 		.work-item .tech-stack {
 			position: relative;
+			-moz-transition: padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			-webkit-transition: padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			-ms-transition: padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			transition: padding-bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 
 		.work-item .tech-stack-categories.expanded {
