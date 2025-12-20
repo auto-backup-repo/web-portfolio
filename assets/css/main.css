@@ -2629,9 +2629,9 @@ input, select, textarea {
 		/* The grid row expansion will move this smoothly due to grid-auto-rows: min-content */
 	}
 	
-	/* Position Nunc enim commodo aliquet (5th work-item) lower */
+	/* Position Mushroom Forager App (5th work-item) lower */
 	#two .row > .work-item:nth-child(5) {
-		margin-top: 2.3em; /* Move Nunc enim commodo aliquet down */
+		margin-top: 2.3em; /* Move Mushroom Forager App down */
 		align-self: start; /* Keep alignment consistent */
 	}
 	
